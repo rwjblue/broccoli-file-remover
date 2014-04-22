@@ -28,17 +28,6 @@ var tree = removeFile('app', {
 });
 ```
 
-## ZOMG!!! TESTS?!?!!?
-
-I know, right?
-
-Running the tests:
-
-```javascript
-npm install
-npm test
-```
-
 ## Documentation
 
 ### `removeFile(inputTree, options)`
@@ -55,6 +44,17 @@ The path of the file to remove.
 
 This allows specifying more than one remove operation at a time (and reduced the total number of trees/steps
 needed if you need to move many files). Each file listed in the array will be removed.
+
+## ZOMG!!! TESTS?!?!!?
+
+I know, right?
+
+Running the tests:
+
+```javascript
+npm install
+npm test
+```
 
 ## License
 
