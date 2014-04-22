@@ -1,4 +1,12 @@
-# Broccoli's File Mover
+# Broccoli's File Remover
+
+[![Build Status](https://travis-ci.org/rjackson/broccoli-file-remover.svg?branch=master)](https://travis-ci.org/rjackson/broccoli-file-remover)
+
+## Installation
+
+```bash
+npm install --save-dev broccoli-file-remover
+```
 
 ## Usage
 
@@ -22,16 +30,6 @@ var tree = removeFile('app', {
 });
 ```
 
-## ZOMG!!! TESTS?!?!!?
-
-I know, right?
-
-Running the tests:
-
-```javascript
-npm test
-```
-
 ## Documentation
 
 ### `removeFile(inputTree, options)`
@@ -48,6 +46,17 @@ The path of the file to remove.
 
 This allows specifying more than one remove operation at a time (and reduced the total number of trees/steps
 needed if you need to move many files). Each file listed in the array will be removed.
+
+## ZOMG!!! TESTS?!?!!?
+
+I know, right?
+
+Running the tests:
+
+```javascript
+npm install
+npm test
+```
 
 ## License
 
