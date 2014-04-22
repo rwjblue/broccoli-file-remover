@@ -1,4 +1,10 @@
-# Broccoli's File Mover
+# Broccoli's File Remover
+
+## Installation
+
+```bash
+npm install --save-dev broccoli-file-remover
+```
 
 ## Usage
 
@@ -29,6 +35,7 @@ I know, right?
 Running the tests:
 
 ```javascript
+npm install
 npm test
 ```
 
