@@ -8,9 +8,14 @@ Remover.prototype.constructor = Remover;
 function Remover (inputTree, options) {
   if (!(this instanceof Remover)) return new Remover(inputTree, options);
 
+  options = options || {};
   this.inputTree = inputTree;
-  this.files     = options.files;
-  this.srcFile   = options.srcFile;
+
+  for (var key in options) {
+    if (options.hasOwnProperty(key)) {
+      this[key] = options[key]
+    }
+  }
 };
 
 Remover.prototype._removeFile = function (directory, source) {
