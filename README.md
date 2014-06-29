@@ -10,6 +10,8 @@ npm install --save-dev broccoli-file-remover
 
 ## Usage
 
+### Files
+
 Removing a single file from `app/main`:
 
 ```javascript
@@ -30,22 +32,44 @@ var tree = removeFile('app', {
 });
 ```
 
+### Directories
+
+Removing a directory (`tests/dummy`):
+
+```javascript
+var removeFile = require('broccoli-file-remover');
+
+var tree = removeFile('app', {
+  path: 'tests/dummy'
+});
+```
+
+Removing a number of directories:
+
+```javascript
+var removeFile = require('broccoli-file-remover');
+
+var tree = removeFile('app', {
+  paths: ['directory1', 'directory2']
+});
+```
+
 ## Documentation
 
 ### `removeFile(inputTree, options)`
 
 ---
 
-`options.srcFile` *{String}*
+`options.srcFile` *{String}* (also aliased as `options.path`)
 
 The path of the file to remove.
 
 ---
 
-`options.files` *{Array}*
+`options.files` *{Array}* (also aliased as `options.paths`)
 
 This allows specifying more than one remove operation at a time (and reduced the total number of trees/steps
-needed if you need to move many files). Each file listed in the array will be removed.
+needed if you need to move many files or directories). Each file listed in the array will be removed.
 
 ## ZOMG!!! TESTS?!?!!?
 
