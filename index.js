@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var CachingWriter = require('broccoli-caching-writer');
 var helpers = require('broccoli-kitchen-sink-helpers')
+var rimraf = require('rimraf');
 
 Remover.prototype = Object.create(CachingWriter.prototype);
 Remover.prototype.constructor = Remover;
@@ -18,8 +19,8 @@ function Remover (inputTree, options) {
   }
 };
 
-Remover.prototype._removeFile = function (directory, source) {
-  fs.unlinkSync(path.join(directory, source));
+Remover.prototype._remove = function (directory, source) {
+  rimraf.sync(path.join(directory, source));
 };
 
 Remover.prototype.updateCache = function (srcDir, destDir) {
@@ -27,12 +28,15 @@ Remover.prototype.updateCache = function (srcDir, destDir) {
 
   helpers.copyRecursivelySync(srcDir, destDir);
 
-  if (Array.isArray(self.files)) {
-    self.files.forEach(function(file) {
-      self._removeFile(destDir, file);
+  var many   = self.files || self.paths;
+  var single = self.srcFile || self.path;
+
+  if (many) {
+    many.forEach(function(file) {
+      self._remove(destDir, file);
     });
   } else {
-    self._removeFile(destDir, self.srcFile);
+    self._remove(destDir, single);
   }
 };
 
