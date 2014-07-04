@@ -1,10 +1,11 @@
 var fs = require('fs');
 var path = require('path');
-var CachingWriter = require('broccoli-caching-writer');
-var helpers = require('broccoli-kitchen-sink-helpers')
+var Writer = require('broccoli-writer');
+var walkSync = require('walk-sync');
 var rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
 
-Remover.prototype = Object.create(CachingWriter.prototype);
+Remover.prototype = Object.create(Writer.prototype);
 Remover.prototype.constructor = Remover;
 function Remover (inputTree, options) {
   if (!(this instanceof Remover)) return new Remover(inputTree, options);
@@ -19,25 +20,48 @@ function Remover (inputTree, options) {
   }
 };
 
+Remover.prototype._linkDeeply = function _linkDeeply(source, destination) {
+  var entries = walkSync(source);
+
+  for (var i = 0, l = entries.length; i < l; i++) {
+    var relativePath = entries[i];
+
+    if (relativePath[relativePath.length - 1] === '/') {
+      mkdirp.sync(destination + '/' + relativePath)
+    } else {
+      var linkPath = source + '/' + relativePath;
+      var stats = fs.lstatSync(linkPath);
+
+      if (stats.isSymbolicLink()) {
+        linkPath = fs.readlinkSync(linkPath);
+      }
+
+      fs.symlinkSync(path.resolve(process.cwd(), linkPath), destination + '/' + relativePath)
+    }
+  }
+};
+
 Remover.prototype._remove = function (directory, source) {
   rimraf.sync(path.join(directory, source));
 };
 
-Remover.prototype.updateCache = function (srcDir, destDir) {
+Remover.prototype.write = function (readTree, destDir) {
   var self = this
 
-  helpers.copyRecursivelySync(srcDir, destDir);
+  return readTree(this.inputTree).then(function(srcDir) {
+    self._linkDeeply(srcDir, destDir);
 
-  var many   = self.files || self.paths;
-  var single = self.srcFile || self.path;
+    var many   = self.files || self.paths;
+    var single = self.srcFile || self.path;
 
-  if (many) {
-    many.forEach(function(file) {
-      self._remove(destDir, file);
-    });
-  } else {
-    self._remove(destDir, single);
-  }
+    if (many) {
+      many.forEach(function(file) {
+        self._remove(destDir, file);
+      });
+    } else {
+      self._remove(destDir, single);
+    }
+  });
 };
 
 module.exports = Remover;
