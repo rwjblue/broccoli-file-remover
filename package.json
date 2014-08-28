@@ -1,6 +1,6 @@
 {
   "name": "broccoli-file-remover",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Broccoli plugin to move a single file.",
   "main": "index.js",
   "author": "Robert Jackson",
@@ -17,7 +17,7 @@
     "javascript"
   ],
   "dependencies": {
-    "broccoli-caching-writer": "~0.1.1",
+    "broccoli-caching-writer": "~0.4.0",
     "broccoli-kitchen-sink-helpers": "~0.2.0",
     "rimraf": "~2.2.8"
   },
