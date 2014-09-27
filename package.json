@@ -19,7 +19,7 @@
   "dependencies": {
     "broccoli-writer": "~0.1.1",
     "rimraf": "~2.2.8",
-    "walk-sync": "~0.1.2",
+    "walk-sync": "joliss/node-walk-sync#master",
     "mkdirp": "~0.5.0"
   },
   "devDependencies": {
