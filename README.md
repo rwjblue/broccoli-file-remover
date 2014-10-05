@@ -1,6 +1,6 @@
 # Broccoli's File Remover
 
-[![Build Status](https://travis-ci.org/rjackson/broccoli-file-remover.svg?branch=master)](https://travis-ci.org/rjackson/broccoli-file-remover)
+[![Build Status](https://travis-ci.org/rwjblue/broccoli-file-remover.svg?branch=master)](https://travis-ci.org/rwjblue/broccoli-file-remover)
 
 ## Installation
 
