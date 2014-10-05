@@ -4,6 +4,7 @@ var Writer = require('broccoli-writer');
 var walkSync = require('walk-sync');
 var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
+var symlinkOrCopy = require('symlink-or-copy');
 
 Remover.prototype = Object.create(Writer.prototype);
 Remover.prototype.constructor = Remover;
@@ -36,7 +37,7 @@ Remover.prototype._linkDeeply = function _linkDeeply(source, destination) {
         linkPath = fs.readlinkSync(linkPath);
       }
 
-      fs.symlinkSync(path.resolve(process.cwd(), linkPath), destination + '/' + relativePath)
+      symlinkOrCopy.sync(path.resolve(process.cwd(), linkPath), destination + '/' + relativePath)
     }
   }
 };
