@@ -10,7 +10,8 @@
     "url": "https://github.com/rjackson/broccoli-file-remover.git"
   },
   "scripts": {
-    "test": "mocha tests/"
+    "test": "mocha tests/",
+    "debug-test": "mocha debug tests/"
   },
   "keywords": [
     "broccoli-plugin",

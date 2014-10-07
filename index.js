@@ -33,11 +33,19 @@ Remover.prototype._linkDeeply = function _linkDeeply(source, destination) {
       var linkPath = source + '/' + relativePath;
       var stats = fs.lstatSync(linkPath);
 
+      var srcPath  = linkPath;
+      
       if (stats.isSymbolicLink()) {
         linkPath = fs.readlinkSync(linkPath);
+
+        if (srcPath[srcPath.length - 1 ] !== '/' && linkPath[0] !== '/') {
+          linkPath = path.join('..' , linkPath);
+        }
+
+        linkPath = path.resolve(srcPath, linkPath);
       }
 
-      symlinkOrCopy.sync(path.resolve(process.cwd(), linkPath), destination + '/' + relativePath)
+      symlinkOrCopy.sync(linkPath, path.join(destination, relativePath))
     }
   }
 };
