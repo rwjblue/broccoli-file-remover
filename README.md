@@ -1,5 +1,8 @@
 # Broccoli's File Remover
 
+**Deprecated in favor of [broccoli-funnel](https://github.com/broccolijs/broccoli-funnel).**
+
+
 [![Build Status](https://travis-ci.org/rwjblue/broccoli-file-remover.svg?branch=master)](https://travis-ci.org/rwjblue/broccoli-file-remover)
 
 ## Installation
@@ -53,6 +56,24 @@ var tree = removeFile('app', {
   paths: ['directory1', 'directory2']
 });
 ```
+
+## Migration to Broccoli Funnel
+
+The examples above can be migrated to use `broccoli-funnel`'s `exclude` option:
+
+```javascript
+const Funnel = require('broccoli-funnel');
+
+let tree = new Funnel('app', { exclude: ['app/main.js', 'test/main.js'] });
+```
+
+or, to remove a directory
+
+
+```javascript
+let tree = new Funnel('app', { exclude: ['tests/dummy'] });
+```
+
 
 ## Documentation
 
